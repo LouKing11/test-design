@@ -1,199 +1,232 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Tech.Care Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tech.Care — Patient Dashboard</title>
+
+  <!-- Bootstrap (tables + utilities) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
 <body>
+  <div class="page">
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <div class="m1"></div><div class="m2"></div><div class="m3"></div>
+          </div>
+          <div class="brand-text">Tech.Care</div>
+        </div>
 
-<header class="header">
-  <div class="logo">Tech<span>.Care</span></div>
-  <nav>
-    <a>Overview</a>
-    <a class="active">Patients</a>
-    <a>Schedule</a>
-    <a>Message</a>
-    <a>Transactions</a>
-  </nav>
-  <div class="user">
-  <img src="./senior-woman-doctor-and-portrait-smile-for-health-2023-11-27-05-18-16-utc.png" alt="Doctor Avatar" />
-  <div>
-    <strong>Dr. Jose Simmons</strong>
-    <span>General Practitioner</span>
+        <nav class="tabs" aria-label="Primary navigation">
+          <a class="tab" href="#" aria-disabled="true">
+            <span class="ic">⌂</span> Overview
+          </a>
+          <a class="tab active" href="#" aria-current="page">
+            <span class="ic">👥</span> Patients
+          </a>
+          <a class="tab" href="#" aria-disabled="true">
+            <span class="ic">🗓</span> Schedule
+          </a>
+          <a class="tab" href="#" aria-disabled="true">
+            <span class="ic">✉️</span> Message
+          </a>
+          <a class="tab" href="#" aria-disabled="true">
+            <span class="ic">💳</span> Transactions
+          </a>
+        </nav>
+
+        <div class="topbar-right">
+          <div class="user">
+            <img class="user-avatar" alt="User avatar"
+                 src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=96&h=96&fit=crop&crop=faces" />
+            <div class="user-meta">
+              <div class="user-name">Dr. Jose Simmons</div>
+              <div class="user-role">General Practitioner</div>
+            </div>
+          </div>
+          <button class="iconbtn" type="button" aria-label="Settings" disabled>⚙</button>
+          <button class="iconbtn" type="button" aria-label="More" disabled>⋮</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main layout -->
+    <div class="shell">
+      <!-- Patients list -->
+      <aside class="card panel patients" aria-label="Patients">
+        <div class="panel-head">
+          <div class="panel-title">Patients</div>
+          <button class="iconbtn" type="button" aria-label="Search" disabled>🔍</button>
+        </div>
+        <div id="patientList" class="patients-list">
+          <div class="text-muted small p-2">Loading…</div>
+        </div>
+      </aside>
+
+      <!-- Center -->
+      <main class="center" aria-label="Dashboard">
+        <div class="section-h1">Diagnosis History</div>
+
+        <section class="card diagnosis-card">
+          <div class="diag-head">
+            <div class="diag-title">Blood Pressure</div>
+            <button class="select-btn" type="button" disabled>
+              Last 6 months <span class="caret">▾</span>
+            </button>
+          </div>
+
+          <div class="bp-wrap">
+            <div class="bp-chart">
+              <canvas id="bpChart" aria-label="Blood pressure chart"></canvas>
+            </div>
+
+            <div class="bp-side" aria-label="Blood pressure summary">
+              <div class="bp-row">
+                <div class="bp-dot systolic"></div>
+                <div class="bp-col">
+                  <div class="bp-label">Systolic</div>
+                  <div id="bpSystolicValue" class="bp-value">—</div>
+                  <div class="bp-trend">
+                    <span class="trend-ic">▲</span>
+                    <span id="bpSystolicLevel">—</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bp-divider"></div>
+
+              <div class="bp-row">
+                <div class="bp-dot diastolic"></div>
+                <div class="bp-col">
+                  <div class="bp-label">Diastolic</div>
+                  <div id="bpDiastolicValue" class="bp-value">—</div>
+                  <div class="bp-trend">
+                    <span class="trend-ic">▼</span>
+                    <span id="bpDiastolicLevel">—</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vitals">
+            <div class="vital v-blue">
+              <div class="v-icon">🫁</div>
+              <div class="v-k">Respiratory Rate</div>
+              <div id="respiratoryRate" class="v-v">—</div>
+              <div id="respiratoryLevel" class="v-s">—</div>
+            </div>
+
+            <div class="vital v-red">
+              <div class="v-icon">🌡</div>
+              <div class="v-k">Temperature</div>
+              <div id="temperature" class="v-v">—</div>
+              <div id="temperatureLevel" class="v-s">—</div>
+            </div>
+
+            <div class="vital v-pink">
+              <div class="v-icon">❤️</div>
+              <div class="v-k">Heart Rate</div>
+              <div id="heartRate" class="v-v">—</div>
+              <div class="v-trend">
+                <span class="trend-ic">▼</span>
+                <span id="heartRateLevel">—</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-h1 mt-4">Diagnostic List</div>
+        <section class="card">
+          <div class="card-body p-0">
+            <div class="table-head">
+              <div class="th-pill">Problem/Diagnosis</div>
+              <div class="th-pill">Description</div>
+              <div class="th-pill">Status</div>
+            </div>
+
+            <div class="table-scroll">
+              <table class="table table-sm align-middle mb-0">
+                <tbody id="diagnosticList">
+                  <tr><td class="text-muted p-3">Loading…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Right -->
+      <aside class="right">
+        <section class="card profile" aria-label="Patient profile">
+          <div class="profile-top">
+            <img id="profilePic" class="profile-avatar" alt="Patient profile picture" />
+            <div id="patientName" class="profile-name">—</div>
+          </div>
+
+          <div class="profile-info">
+            <div class="info-row">
+              <div class="info-ic">📅</div>
+              <div>
+                <div class="info-k">Date Of Birth</div>
+                <div id="dob" class="info-v">—</div>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="info-ic">♀</div>
+              <div>
+                <div class="info-k">Gender</div>
+                <div id="gender" class="info-v">—</div>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="info-ic">📞</div>
+              <div>
+                <div class="info-k">Contact Info.</div>
+                <div id="phone" class="info-v">—</div>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="info-ic">☎</div>
+              <div>
+                <div class="info-k">Emergency Contacts</div>
+                <div id="emergency" class="info-v">—</div>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="info-ic">🛡</div>
+              <div>
+                <div class="info-k">Insurance Provider</div>
+                <div id="insurance" class="info-v">—</div>
+              </div>
+            </div>
+
+            <button class="cta" type="button" disabled>Show All Information</button>
+          </div>
+        </section>
+
+        <div class="section-h1 mt-4">Lab Results</div>
+        <section class="card lab" aria-label="Lab results">
+          <div id="labResults" class="lab-list">
+            <div class="text-muted small p-3">Loading…</div>
+          </div>
+        </section>
+      </aside>
+    </div>
   </div>
-</div>
 
-</header>
-
-<div class="layout">
-
-  <!-- LEFT -->
-  <aside class="patients">
-    <div class="patients-header">
-      <h3>Patients</h3>
-      🔍
-    </div>
-    <ul>
-      <li class = "patient">
-        <img src="./Layer 2.png" alt="Default Avatar" />
-        <div>
-            <strong>Emily Williams</strong>
-            <span>Female, 18</span>
-        </div>
-      </li>
-      <li class = "patient">
-        <img src="./Layer 2.png" alt="Default Avatar" />
-        <div>
-            <strong>Ryan Johnson</strong>
-            <span>Male, 45</span>
-        </div>
-      </li>
-      <li class = "patient">
-        <img src="./Layer 2.png" alt="Default Avatar" />
-        <div>
-            <strong>Brandon Mitchell</strong>
-            <span>Male, 36</span>
-        </div>
-      </li>
-      <li class="active patient">
-        <img src="./Layer 2.png" alt="Avatar" />
-        <div>
-            <strong>Jessica Taylor</strong>
-            <span>Female, 28</span>
-        </div>
-      </li>
-
-      <li class = "patient">
-        <img src="./Layer 2.png" alt="Default Avatar" />
-        <div>
-            <strong>Samantha Johnson</strong>
-            <span>Female, 56</span>
-        </div>
-      </li>
-    </ul>
-  </aside>
-
-  <!-- CENTER -->
-  <main>
-    <section class="card">
-      <h3>Diagnosis History</h3>
-
-      <div class="bp-card">
-        <div class="bp-header">
-          <strong>Blood Pressure</strong>
-          <span>Last 6 months</span>
-        </div>
-
-        <div class="bp-content">
-          <div class="chart-wrapper">
-            <canvas id="bpChart"></canvas>
-          </div>
-
-          <div class="bp-stats">
-            <div>
-              <span class="dot pink"></span>
-              <p>Systolic</p>
-              <h4>160</h4>
-              <small>Higher than Average</small>
-            </div>
-            <div>
-              <span class="dot purple"></span>
-              <p>Diastolic</p>
-              <h4>78</h4>
-              <small>Lower than Average</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="vitals">
-        <div class="vital blue">
-          <h4>Respiratory Rate</h4>
-          <strong>20 bpm</strong>
-          <span>Normal</span>
-        </div>
-        <div class="vital pink">
-          <h4>Temperature</h4>
-          <strong>98.6°F</strong>
-          <span>Normal</span>
-        </div>
-        <div class="vital purple">
-          <h4>Heart Rate</h4>
-          <strong>78 bpm</strong>
-          <span>Lower than Average</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-        <h3>Diagnostic List</h3>
-
-        <div class="table-scroll">
-            <table>
-            <thead>
-                <tr>
-                <th>Problem</th>
-                <th>Description</th>
-                <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td>Hypertension</td>
-                <td>Chronic high blood pressure</td>
-                <td>Under Observation</td>
-                </tr>
-                <tr class="selected">
-                <td>Type 2 Diabetes</td>
-                <td>Insulin resistance</td>
-                <td>Cured</td>
-                </tr>
-                <tr>
-                <td>Asthma</td>
-                <td>Bronchial constriction</td>
-                <td>Inactive</td>
-                </tr>
-                <!-- more rows -->
-            </tbody>
-            </table>
-        </div>
-    </section>
-  </main>
-
-  <!-- RIGHT -->
-  <aside class="profile">
-    <img src="./Layer 2.png" />
-    <h2>Jessica Taylor</h2>
-
-    <ul>
-      <li><strong>DOB:</strong> August 23, 1996</li>
-      <li><strong>Gender:</strong> Female</li>
-      <li><strong>Phone:</strong> (415) 555-1234</li>
-      <li><strong>Emergency:</strong> (415) 555-5678</li>
-      <li><strong>Insurance:</strong> Sunrise Health</li>
-    </ul>
-
-    <button>Show All Information</button>
-
-    <div class="labs">
-        <h3>Lab Results</h3>
-
-        <div class="labs-scroll">
-            <p>Blood Tests ⬇</p>
-            <p>CT Scans ⬇</p>
-            <p>Radiology Reports ⬇</p>
-            <p>X-Rays ⬇</p>
-            <p>Urine Test ⬇</p>
-            <p>Blood Oxygen ⬇</p>
-        </div>
-    </div>
-  </aside>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="./js/app.js"></script>
 </body>
 </html>
