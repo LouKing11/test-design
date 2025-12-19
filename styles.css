@@ -1,0 +1,236 @@
+* {
+  font-family: Inter, system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f6f8fb;
+}
+
+/* Header */
+.header {
+  background: white;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.logo span { color: #00d5b1; }
+
+nav a {
+  margin: 0 14px;
+  color: #6b7280;
+}
+
+nav a.active {
+  background: #00d5b1;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+}
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr 320px;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Patients */
+.patients {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.patients li {
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.patients li.active {
+  background: #e6faf5;
+  font-weight: 600;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* BP */
+.bp-card {
+  background: #f3f0ff;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.bp-content {
+  display: flex;
+  gap: 20px;
+}
+
+.bp-stats div {
+  margin-bottom: 12px;
+}
+
+/* Vitals */
+.vitals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.vital {
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.blue { background: #e7f7fb; }
+.pink { background: #fdecee; }
+.purple { background: #f1edff; }
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td, th {
+  padding: 12px;
+}
+
+.selected {
+  border-left: 4px solid #3b82f6;
+}
+
+/* Profile */
+.profile {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  text-align: center;
+}
+
+.profile img {
+  border-radius: 50%;
+}
+
+.profile button {
+  margin: 16px 0;
+  background: #00d5b1;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 24px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.user span {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.patient {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.patient img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.patients li {
+  cursor: pointer;
+}
+
+.patients li span {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.patient img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.patients li:not(.active) img {
+  opacity: 0.7;
+}
+
+.patients li.active img {
+  border: 2px solid #00d5b1;
+}
+
+.table-scroll {
+  max-height: 220px;
+  overflow-y: auto;
+  margin-top: 12px;
+}
+
+/* Keep header visible */
+.table-scroll thead th {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.labs-scroll {
+  max-height: 180px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.labs-scroll p {
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+}
+
+.table-scroll::-webkit-scrollbar,
+.labs-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb,
+.labs-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+/* Firefox */
+.table-scroll,
+.labs-scroll {
+  scrollbar-width: thin;
+}

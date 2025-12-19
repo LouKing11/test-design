@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tech.Care Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">Tech<span>.Care</span></div>
+  <nav>
+    <a>Overview</a>
+    <a class="active">Patients</a>
+    <a>Schedule</a>
+    <a>Message</a>
+    <a>Transactions</a>
+  </nav>
+  <div class="user">
+  <img src="./senior-woman-doctor-and-portrait-smile-for-health-2023-11-27-05-18-16-utc.png" alt="Doctor Avatar" />
+  <div>
+    <strong>Dr. Jose Simmons</strong>
+    <span>General Practitioner</span>
+  </div>
+</div>
+
+</header>
+
+<div class="layout">
+
+  <!-- LEFT -->
+  <aside class="patients">
+    <div class="patients-header">
+      <h3>Patients</h3>
+      🔍
+    </div>
+    <ul>
+      <li class = "patient">
+        <img src="./Layer 2.png" alt="Default Avatar" />
+        <div>
+            <strong>Emily Williams</strong>
+            <span>Female, 18</span>
+        </div>
+      </li>
+      <li class = "patient">
+        <img src="./Layer 2.png" alt="Default Avatar" />
+        <div>
+            <strong>Ryan Johnson</strong>
+            <span>Male, 45</span>
+        </div>
+      </li>
+      <li class = "patient">
+        <img src="./Layer 2.png" alt="Default Avatar" />
+        <div>
+            <strong>Brandon Mitchell</strong>
+            <span>Male, 36</span>
+        </div>
+      </li>
+      <li class="active patient">
+        <img src="./Layer 2.png" alt="Avatar" />
+        <div>
+            <strong>Jessica Taylor</strong>
+            <span>Female, 28</span>
+        </div>
+      </li>
+
+      <li class = "patient">
+        <img src="./Layer 2.png" alt="Default Avatar" />
+        <div>
+            <strong>Samantha Johnson</strong>
+            <span>Female, 56</span>
+        </div>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- CENTER -->
+  <main>
+    <section class="card">
+      <h3>Diagnosis History</h3>
+
+      <div class="bp-card">
+        <div class="bp-header">
+          <strong>Blood Pressure</strong>
+          <span>Last 6 months</span>
+        </div>
+
+        <div class="bp-content">
+          <div class="chart-wrapper">
+            <canvas id="bpChart"></canvas>
+          </div>
+
+          <div class="bp-stats">
+            <div>
+              <span class="dot pink"></span>
+              <p>Systolic</p>
+              <h4>160</h4>
+              <small>Higher than Average</small>
+            </div>
+            <div>
+              <span class="dot purple"></span>
+              <p>Diastolic</p>
+              <h4>78</h4>
+              <small>Lower than Average</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vitals">
+        <div class="vital blue">
+          <h4>Respiratory Rate</h4>
+          <strong>20 bpm</strong>
+          <span>Normal</span>
+        </div>
+        <div class="vital pink">
+          <h4>Temperature</h4>
+          <strong>98.6°F</strong>
+          <span>Normal</span>
+        </div>
+        <div class="vital purple">
+          <h4>Heart Rate</h4>
+          <strong>78 bpm</strong>
+          <span>Lower than Average</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+        <h3>Diagnostic List</h3>
+
+        <div class="table-scroll">
+            <table>
+            <thead>
+                <tr>
+                <th>Problem</th>
+                <th>Description</th>
+                <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>Hypertension</td>
+                <td>Chronic high blood pressure</td>
+                <td>Under Observation</td>
+                </tr>
+                <tr class="selected">
+                <td>Type 2 Diabetes</td>
+                <td>Insulin resistance</td>
+                <td>Cured</td>
+                </tr>
+                <tr>
+                <td>Asthma</td>
+                <td>Bronchial constriction</td>
+                <td>Inactive</td>
+                </tr>
+                <!-- more rows -->
+            </tbody>
+            </table>
+        </div>
+    </section>
+  </main>
+
+  <!-- RIGHT -->
+  <aside class="profile">
+    <img src="./Layer 2.png" />
+    <h2>Jessica Taylor</h2>
+
+    <ul>
+      <li><strong>DOB:</strong> August 23, 1996</li>
+      <li><strong>Gender:</strong> Female</li>
+      <li><strong>Phone:</strong> (415) 555-1234</li>
+      <li><strong>Emergency:</strong> (415) 555-5678</li>
+      <li><strong>Insurance:</strong> Sunrise Health</li>
+    </ul>
+
+    <button>Show All Information</button>
+
+    <div class="labs">
+        <h3>Lab Results</h3>
+
+        <div class="labs-scroll">
+            <p>Blood Tests ⬇</p>
+            <p>CT Scans ⬇</p>
+            <p>Radiology Reports ⬇</p>
+            <p>X-Rays ⬇</p>
+            <p>Urine Test ⬇</p>
+            <p>Blood Oxygen ⬇</p>
+        </div>
+    </div>
+  </aside>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
