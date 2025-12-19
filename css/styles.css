@@ -55,7 +55,8 @@ body {
   left: 50px;
   width: 211px;
   height: 48px;
-  background: transparent url("../img/TestLogo.svg") 0% 0% no-repeat padding-box;
+  background: transparent url("../assets/TestLogo.svg") 0% 0% no-repeat
+    padding-box;
   opacity: 1;
 }
 .brand-mark {
