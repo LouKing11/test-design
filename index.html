@@ -14,217 +14,169 @@
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
 <body>
-  <div class="page">
-    <!-- Top bar -->
-    <header class="topbar">
-      <div class="topbar-inner">
-        <div class="brand">
-          <div class="brand-mark" aria-hidden="true">
-            <div class="m1"></div><div class="m2"></div><div class="m3"></div>
-          </div>
-          <div class="brand-text">Tech.Care</div>
-        </div>
+  <div class="canvas">
+    <!-- Header container -->
+    <header class="tc-header" aria-label="TechCare header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-text">Tech.Care</div>
+      </div>
 
-        <nav class="tabs" aria-label="Primary navigation">
-          <a class="tab" href="#" aria-disabled="true">
-            <span class="ic">⌂</span> Overview
-          </a>
-          <a class="tab active" href="#" aria-current="page">
-            <span class="ic">👥</span> Patients
-          </a>
-          <a class="tab" href="#" aria-disabled="true">
-            <span class="ic">🗓</span> Schedule
-          </a>
-          <a class="tab" href="#" aria-disabled="true">
-            <span class="ic">✉️</span> Message
-          </a>
-          <a class="tab" href="#" aria-disabled="true">
-            <span class="ic">💳</span> Transactions
-          </a>
-        </nav>
+      <nav class="tabs" aria-label="Primary navigation">
+        <a class="tab" href="#" aria-disabled="true">Overview</a>
+        <a class="tab active" href="#" aria-current="page">Patients</a>
+        <a class="tab" href="#" aria-disabled="true">Schedule</a>
+        <a class="tab" href="#" aria-disabled="true">Message</a>
+        <a class="tab" href="#" aria-disabled="true">Transactions</a>
+      </nav>
 
-        <div class="topbar-right">
-          <div class="user">
-            <img class="user-avatar" alt="User avatar"
-                 src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=96&h=96&fit=crop&crop=faces" />
-            <div class="user-meta">
-              <div class="user-name">Dr. Jose Simmons</div>
-              <div class="user-role">General Practitioner</div>
-            </div>
-          </div>
-          <button class="iconbtn" type="button" aria-label="Settings" disabled>⚙</button>
-          <button class="iconbtn" type="button" aria-label="More" disabled>⋮</button>
+      <div class="user">
+        <img class="user-avatar" alt="User avatar"
+             src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=96&h=96&fit=crop&crop=faces" />
+        <div class="user-meta">
+          <div class="user-name">Dr. Jose Simmons</div>
+          <div class="user-role">General Practitioner</div>
         </div>
+        <button class="iconbtn" type="button" aria-label="Settings" disabled>⚙</button>
+        <button class="iconbtn" type="button" aria-label="More" disabled>⋮</button>
       </div>
     </header>
 
-    <!-- Main layout -->
-    <div class="shell">
-      <!-- Patients list -->
-      <aside class="card panel patients" aria-label="Patients">
-        <div class="panel-head">
-          <div class="panel-title">Patients</div>
-          <button class="iconbtn" type="button" aria-label="Search" disabled>🔍</button>
+    <!-- Patients card -->
+    <aside class="card patients-card" aria-label="Patients card">
+      <div class="card-head">
+        <div class="card-title">Patients</div>
+        <button class="iconbtn" type="button" aria-label="Search" disabled>🔍</button>
+      </div>
+      <div id="patientList" class="patients-list">
+        <div class="text-muted small p-2">Loading…</div>
+      </div>
+    </aside>
+
+    <!-- Diagnosis history card -->
+    <main class="card diagnosis-card" aria-label="Diagnosis history card">
+      <div class="card-head">
+        <div class="card-title">Diagnosis History</div>
+        <button class="select-btn" type="button" disabled>
+          Last 6 months <span class="caret">▾</span>
+        </button>
+      </div>
+
+      <div class="bp-block">
+        <div class="bp-top">Blood Pressure</div>
+
+        <div class="bp-grid">
+          <div class="bp-chart">
+            <canvas id="bpChart" aria-label="Blood pressure chart"></canvas>
+          </div>
+
+          <div class="bp-side" aria-label="Blood pressure summary">
+            <div class="bp-row">
+              <div class="bp-dot systolic"></div>
+              <div class="bp-col">
+                <div class="bp-label">Systolic</div>
+                <div id="bpSystolicValue" class="bp-value">—</div>
+                <div class="bp-trend"><span class="trend-ic">▲</span><span id="bpSystolicLevel">—</span></div>
+              </div>
+            </div>
+
+            <div class="bp-divider"></div>
+
+            <div class="bp-row">
+              <div class="bp-dot diastolic"></div>
+              <div class="bp-col">
+                <div class="bp-label">Diastolic</div>
+                <div id="bpDiastolicValue" class="bp-value">—</div>
+                <div class="bp-trend"><span class="trend-ic">▼</span><span id="bpDiastolicLevel">—</span></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="patientList" class="patients-list">
-          <div class="text-muted small p-2">Loading…</div>
+
+        <div class="vitals">
+          <div class="vital v-blue">
+            <div class="v-k">Respiratory Rate</div>
+            <div id="respiratoryRate" class="v-v">—</div>
+            <div id="respiratoryLevel" class="v-s">—</div>
+          </div>
+          <div class="vital v-red">
+            <div class="v-k">Temperature</div>
+            <div id="temperature" class="v-v">—</div>
+            <div id="temperatureLevel" class="v-s">—</div>
+          </div>
+          <div class="vital v-pink">
+            <div class="v-k">Heart Rate</div>
+            <div id="heartRate" class="v-v">—</div>
+            <div class="v-s"><span class="trend-ic">▼</span><span id="heartRateLevel">—</span></div>
+          </div>
         </div>
-      </aside>
+      </div>
+    </main>
 
-      <!-- Center -->
-      <main class="center" aria-label="Dashboard">
-        <div class="section-h1">Diagnosis History</div>
+    <!-- Diagnostic list card -->
+    <section class="card diagnostic-card" aria-label="Diagnostic list card">
+      <div class="card-head">
+        <div class="card-title">Diagnostic List</div>
+      </div>
 
-        <section class="card diagnosis-card">
-          <div class="diag-head">
-            <div class="diag-title">Blood Pressure</div>
-            <button class="select-btn" type="button" disabled>
-              Last 6 months <span class="caret">▾</span>
-            </button>
-          </div>
+      <div class="table-head">
+        <div class="th-pill">Problem/Diagnosis</div>
+        <div class="th-pill">Description</div>
+        <div class="th-pill">Status</div>
+      </div>
 
-          <div class="bp-wrap">
-            <div class="bp-chart">
-              <canvas id="bpChart" aria-label="Blood pressure chart"></canvas>
-            </div>
+      <div class="table-scroll">
+        <table class="table table-sm align-middle mb-0">
+          <tbody id="diagnosticList">
+            <tr><td class="text-muted p-3">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-            <div class="bp-side" aria-label="Blood pressure summary">
-              <div class="bp-row">
-                <div class="bp-dot systolic"></div>
-                <div class="bp-col">
-                  <div class="bp-label">Systolic</div>
-                  <div id="bpSystolicValue" class="bp-value">—</div>
-                  <div class="bp-trend">
-                    <span class="trend-ic">▲</span>
-                    <span id="bpSystolicLevel">—</span>
-                  </div>
-                </div>
-              </div>
+    <!-- Jessica Taylor (profile) card -->
+    <aside class="card profile-card" aria-label="Jessica Taylor profile card">
+      <div class="profile-top">
+        <img id="profilePic" class="profile-avatar" alt="Patient profile picture" />
+        <div id="patientName" class="profile-name">—</div>
+      </div>
 
-              <div class="bp-divider"></div>
+      <div class="profile-info">
+        <div class="info-row">
+          <div class="info-k">Date Of Birth</div>
+          <div id="dob" class="info-v">—</div>
+        </div>
+        <div class="info-row">
+          <div class="info-k">Gender</div>
+          <div id="gender" class="info-v">—</div>
+        </div>
+        <div class="info-row">
+          <div class="info-k">Contact Info.</div>
+          <div id="phone" class="info-v">—</div>
+        </div>
+        <div class="info-row">
+          <div class="info-k">Emergency Contacts</div>
+          <div id="emergency" class="info-v">—</div>
+        </div>
+        <div class="info-row">
+          <div class="info-k">Insurance Provider</div>
+          <div id="insurance" class="info-v">—</div>
+        </div>
 
-              <div class="bp-row">
-                <div class="bp-dot diastolic"></div>
-                <div class="bp-col">
-                  <div class="bp-label">Diastolic</div>
-                  <div id="bpDiastolicValue" class="bp-value">—</div>
-                  <div class="bp-trend">
-                    <span class="trend-ic">▼</span>
-                    <span id="bpDiastolicLevel">—</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <button class="cta" type="button" disabled>Show All Information</button>
+      </div>
+    </aside>
 
-          <div class="vitals">
-            <div class="vital v-blue">
-              <div class="v-icon">🫁</div>
-              <div class="v-k">Respiratory Rate</div>
-              <div id="respiratoryRate" class="v-v">—</div>
-              <div id="respiratoryLevel" class="v-s">—</div>
-            </div>
+    <!-- Lab results card -->
+    <section class="card labs-card" aria-label="Lab results card">
+      <div class="card-head">
+        <div class="card-title">Lab Results</div>
+      </div>
+      <div id="labResults" class="lab-list">
+        <div class="text-muted small p-2">Loading…</div>
+      </div>
+    </section>
 
-            <div class="vital v-red">
-              <div class="v-icon">🌡</div>
-              <div class="v-k">Temperature</div>
-              <div id="temperature" class="v-v">—</div>
-              <div id="temperatureLevel" class="v-s">—</div>
-            </div>
-
-            <div class="vital v-pink">
-              <div class="v-icon">❤️</div>
-              <div class="v-k">Heart Rate</div>
-              <div id="heartRate" class="v-v">—</div>
-              <div class="v-trend">
-                <span class="trend-ic">▼</span>
-                <span id="heartRateLevel">—</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div class="section-h1 mt-4">Diagnostic List</div>
-        <section class="card">
-          <div class="card-body p-0">
-            <div class="table-head">
-              <div class="th-pill">Problem/Diagnosis</div>
-              <div class="th-pill">Description</div>
-              <div class="th-pill">Status</div>
-            </div>
-
-            <div class="table-scroll">
-              <table class="table table-sm align-middle mb-0">
-                <tbody id="diagnosticList">
-                  <tr><td class="text-muted p-3">Loading…</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <!-- Right -->
-      <aside class="right">
-        <section class="card profile" aria-label="Patient profile">
-          <div class="profile-top">
-            <img id="profilePic" class="profile-avatar" alt="Patient profile picture" />
-            <div id="patientName" class="profile-name">—</div>
-          </div>
-
-          <div class="profile-info">
-            <div class="info-row">
-              <div class="info-ic">📅</div>
-              <div>
-                <div class="info-k">Date Of Birth</div>
-                <div id="dob" class="info-v">—</div>
-              </div>
-            </div>
-
-            <div class="info-row">
-              <div class="info-ic">♀</div>
-              <div>
-                <div class="info-k">Gender</div>
-                <div id="gender" class="info-v">—</div>
-              </div>
-            </div>
-
-            <div class="info-row">
-              <div class="info-ic">📞</div>
-              <div>
-                <div class="info-k">Contact Info.</div>
-                <div id="phone" class="info-v">—</div>
-              </div>
-            </div>
-
-            <div class="info-row">
-              <div class="info-ic">☎</div>
-              <div>
-                <div class="info-k">Emergency Contacts</div>
-                <div id="emergency" class="info-v">—</div>
-              </div>
-            </div>
-
-            <div class="info-row">
-              <div class="info-ic">🛡</div>
-              <div>
-                <div class="info-k">Insurance Provider</div>
-                <div id="insurance" class="info-v">—</div>
-              </div>
-            </div>
-
-            <button class="cta" type="button" disabled>Show All Information</button>
-          </div>
-        </section>
-
-        <div class="section-h1 mt-4">Lab Results</div>
-        <section class="card lab" aria-label="Lab results">
-          <div id="labResults" class="lab-list">
-            <div class="text-muted small p-3">Loading…</div>
-          </div>
-        </section>
-      </aside>
-    </div>
   </div>
 
   <script src="./js/app.js"></script>

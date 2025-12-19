@@ -159,7 +159,6 @@
       return;
     }
 
-    // 3-column layout in a regular table row
     tbody.innerHTML = list.map(d => `
       <tr>
         <td style="width: 34%">${escapeHtml(d.name || "")}</td>
@@ -226,7 +225,6 @@
         return;
       }
 
-      // Main content is Jessica only (per instructions).
       renderPatientList(patients, jessica.name);
       renderProfile(jessica);
       renderVitalsFromLatestHistory(jessica);
